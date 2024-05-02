@@ -1,0 +1,39 @@
+---
+title: Users List
+description: This page displays a list of users fetched from a remote API.
+---
+
+import { UsersList } from '/snippets/UsersList.js';
+
+# Users List
+
+This document explains how to fetch and display a list of users using a React component. Below is the `UsersList` component that fetches user data from a specified API and renders it in a simple list format.
+
+## Component Code
+
+```jsx
+import React, { useState, useEffect } from 'react';
+
+const UsersList = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch('https://your-api.com/users')
+      .then(response => response.json())
+      .then(data => setUsers(data))
+      .catch(error => console.error('Error fetching users:', error));
+  }, []);
+
+  return (
+    <div>
+      <h1>Users List</h1>
+      <ul>
+        {users.map(user => (
+          <li key={user.id}>{user.name}</li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default UsersList;
